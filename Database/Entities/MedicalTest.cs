@@ -1,6 +1,7 @@
 ﻿using Microsoft.ML.Data;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Database.Entities
 {
@@ -52,15 +53,15 @@ namespace Database.Entities
         public float SleepHoursPerDay { get; set; }
         [LoadColumn(21)]
         public bool Label { get; set; }
-        //public int PredictionId { get; set; }
-        //[ForeignKey(nameof(PredictionId))]
-        //public Prediction prediction { get; set; }
-        //public long PatientSSN { get; set; }
-        //[ForeignKey(nameof(PatientSSN))]
-        //public Patient patient { get; set; }
-        //public int MedicalAnalystId { get; set; }
-        //[ForeignKey(nameof(MedicalAnalystId))]
-        //public MedicalAnalyst medicalAnalyst { get; set; }
+        public int PredictionId { get; set; }
+        [ForeignKey(nameof(PredictionId))]
+        public Prediction prediction { get; set; }
+        public long PatientSSN { get; set; }
+        [ForeignKey(nameof(PatientSSN))]
+        public Patient patient { get; set; }
+        public int MedicalAnalystId { get; set; }
+        [ForeignKey(nameof(MedicalAnalystId))]
+        public MedicalAnalyst medicalAnalyst { get; set; }
         public DateTime date { get; set; }
         public MedicalTest()
         {

@@ -177,9 +177,12 @@ namespace HearPrediction.Api.Data.Services
 					Address = registerDoctorDTO.Address,
 					IsAvailable = true,
 				};
+
 				await _unitOfWork.Doctors.Add(doctor);
 				await _unitOfWork.Complete();
 				var jwtSecurityToken = await CreateJwtToken(user);
+				var refreshToken = GenerateRefreshToken();
+				user.RefreshTokens?.Add(refreshToken);
 				return new AuthModel
 				{
 					Email = user.Email,
@@ -187,6 +190,8 @@ namespace HearPrediction.Api.Data.Services
 					IsAuthenticated = true,
 					Roles = new List<string> { "Doctor" },
 					Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
+					RefreshToken = refreshToken.Token,
+					RefreshTokenExpiration = refreshToken.ExpiresOn
 				};
 			}
 
@@ -227,6 +232,8 @@ namespace HearPrediction.Api.Data.Services
 				await _unitOfWork.Complete();
 
 				var jwtSecurityToken = await CreateJwtToken(user);
+				var refreshToken = GenerateRefreshToken();
+				user.RefreshTokens?.Add(refreshToken);
 				return new AuthModel
 				{
 					Email = user.Email,
@@ -234,6 +241,8 @@ namespace HearPrediction.Api.Data.Services
 					IsAuthenticated = true,
 					Roles = new List<string> { "MedicalAnalyst" },
 					Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
+					RefreshToken = refreshToken.Token,
+					RefreshTokenExpiration = refreshToken.ExpiresOn
 				};
 			}
 
@@ -273,6 +282,8 @@ namespace HearPrediction.Api.Data.Services
 				await _unitOfWork.Complete();
 
 				var jwtSecurityToken = await CreateJwtToken(user);
+				var refreshToken = GenerateRefreshToken();
+				user.RefreshTokens?.Add(refreshToken);
 				return new AuthModel
 				{
 					Email = user.Email,
@@ -280,6 +291,8 @@ namespace HearPrediction.Api.Data.Services
 					IsAuthenticated = true,
 					Roles = new List<string> { "Admin" },
 					Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
+					RefreshToken = refreshToken.Token,
+					RefreshTokenExpiration = refreshToken.ExpiresOn
 				};
 			}
 
@@ -326,6 +339,8 @@ namespace HearPrediction.Api.Data.Services
 				await _unitOfWork.Complete();
 
 				var jwtSecurityToken = await CreateJwtToken(user);
+				var refreshToken = GenerateRefreshToken();
+				user.RefreshTokens?.Add(refreshToken);
 				return new AuthModel
 				{
 					Email = user.Email,
@@ -333,6 +348,8 @@ namespace HearPrediction.Api.Data.Services
 					IsAuthenticated = true,
 					Roles = new List<string> { "User" },
 					Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
+					RefreshToken = refreshToken.Token,
+					RefreshTokenExpiration = refreshToken.ExpiresOn
 				};
 			}
 

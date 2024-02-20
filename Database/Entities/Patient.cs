@@ -17,14 +17,14 @@ namespace Database.Entities
         public string UserId { get; set; }
         [ForeignKey(nameof(UserId))]
         public virtual ApplicationUser User { get; set; }
-        //public virtual ICollection<Appointment> Appointments { get; set; }
+        public virtual ICollection<Appointment> Appointments { get; set; }
         public virtual ICollection<Prescription> Prescriptions { get; set; }
-        //public virtual ICollection<MedicalTest> MedicalTests { get; set; }
+        public virtual ICollection<MedicalTest> MedicalTests { get; set; }
         public Patient()
         {
-            //Appointments = new Collection<Appointment>();
+            Appointments = new Collection<Appointment>();
             Prescriptions = new Collection<Prescription>();
-            //MedicalTests = new Collection<MedicalTest>();
+            MedicalTests = new Collection<MedicalTest>();
         }
     }
 }

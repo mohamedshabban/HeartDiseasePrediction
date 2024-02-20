@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Database.Entities
@@ -13,10 +15,10 @@ namespace Database.Entities
         public int LabId { get; set; }
         [ForeignKey(nameof(LabId))]
         public virtual Lab Lab { get; set; }
-        //public virtual ICollection<MedicalTest> medicalTests { get; set; }
-        //public MedicalAnalyst()
-        //{
-        //    medicalTests = new Collection<MedicalTest>();
-        //}
+        public virtual ICollection<MedicalTest> medicalTests { get; set; }
+        public MedicalAnalyst()
+        {
+            medicalTests = new Collection<MedicalTest>();
+        }
     }
 }

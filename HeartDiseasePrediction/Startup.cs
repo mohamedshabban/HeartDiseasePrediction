@@ -32,6 +32,7 @@ namespace HeartDiseasePrediction
 				CloseButton = true
 			});
 			services.AddMvc().AddRazorRuntimeCompilation();
+			services.AddDistributedMemoryCache();
 			//services.AddIdentity<ApplicationUser, IdentityRole>()
 			//	.AddEntityFrameworkStores<AppDbContext>()
 			//	.AddDefaultTokenProviders();
@@ -43,9 +44,11 @@ namespace HeartDiseasePrediction
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			services.AddSession(options =>
 			{
-				options.IdleTimeout = TimeSpan.FromMinutes(60);
+				options.Cookie.Name = ".NetEscapades.Session";
+				options.IdleTimeout = TimeSpan.FromDays(1);
+				options.Cookie.IsEssential = true;
 			});
-			services.AddMemoryCache();
+
 			services.AddSession();
 			services.AddAuthentication(options =>
 			{
@@ -75,6 +78,7 @@ namespace HeartDiseasePrediction
 
 			app.UseAuthentication();
 			app.UseAuthorization();
+
 			app.UseStaticFiles();
 
 			app.UseEndpoints(endpoints =>

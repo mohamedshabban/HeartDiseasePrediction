@@ -12,7 +12,7 @@ namespace Database.Entities
     {
         [Required, MaxLength(250)]
         [Display(Name = "Full Name")]
-        public string UserName { get; set; }
+        public string FullName { get; set; }
         [Required, MaxLength(100)]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }

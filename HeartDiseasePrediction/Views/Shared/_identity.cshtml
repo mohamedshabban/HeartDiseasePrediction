@@ -1,8 +1,10 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<ApplicationUser> SignInManager
+﻿@using Microsoft.AspNetCore.Http;
+
+@*@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager*@
 
 
-@if (!SignInManager.IsSignedIn(User))@*string.IsNullOrWhiteSpace(HttpContextAccessor.HttpContext.Session.GetString("JWToken"))*@
+@if (User.Identity.IsAuthenticated)@*string.IsNullOrWhiteSpace(HttpContextAccessor.HttpContext.Session.GetString("JWToken"))*@
 {
 	<a asp-controller="Account" asp-action="Login">
 		<i class="fa fa-sign-in" aria-hidden="true"></i>

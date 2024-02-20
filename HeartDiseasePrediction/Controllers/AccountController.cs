@@ -26,6 +26,7 @@ namespace HeartDiseasePrediction.Controllers
 			return View();
 		}
 		[HttpPost]
+		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Login(LoginVM model)
 		{
 			try
@@ -38,9 +39,16 @@ namespace HeartDiseasePrediction.Controllers
 				{
 					string token = await response.Content.ReadAsStringAsync();
 					HttpContext.Session.SetString("JWToken", token);
+
+					//if (string.IsNullOrEmpty(HttpContext.Session.GetString(sessionKey)))
+					//{
+					//	HttpContext.Session.SetString(sessionKey, model.Email);
+					//}
+					//var name = HttpContext.Session.GetString(sessionKey);
+
 					//ViewData["UserName"]=User.Identity.Name;
-					ViewData["UserName"] = model.Email;
-					ViewBag.UserName = model.Email;
+					//ViewData["UserName"] = model.Email;
+					//ViewBag.UserName = model.Email;
 					TempData["successMesssage"] = "Login Success.";
 					_toastNotification.AddSuccessToastMessage("Login Success");
 					return RedirectToAction("Index", "Home");
@@ -211,7 +219,7 @@ namespace HeartDiseasePrediction.Controllers
 				{
 					TempData["successMesssage"] = "Doctor Created successfully.";
 					_toastNotification.AddSuccessToastMessage("Doctor Created successfully.");
-					return RedirectToAction("Index", "Home");
+					return RedirectToAction("Index", "Doctor");
 				}
 			}
 			catch (Exception ex)
